@@ -23,24 +23,14 @@ def main():
     is_a_leap_year function. It will print the result to the user
     :return: NA
     """
-    exit_main = False
-
     # While the user does not want to exit, keep asking for a year
-    while not exit_main:
-        user_year = int(input('Enter a year: '))
+    user_year = int(input('Enter a year: '))
 
-        # Using the is_a_leap year function to check if its a leap year and printing the corresponding response
-        if is_a_leap_year(user_year):
-            print('Is a leap year')
-        else:
-            print('Is not a leap year')
-
-        # Asking the user about quiting
-        user_quit = input('Would you like to get yes (Y) or no (N)?: ')
-
-        # Exiting the loop and quiting the program when the user inputs 'Y"
-        if user_quit == 'Y':
-            exit_main = True
+    # Using the is_a_leap year function to check if its a leap year and printing the corresponding response
+    if is_a_leap_year(user_year):
+        print('Is a leap year')
+    else:
+        print('Is not a leap year')
 
 
 # Calling the main function to run the program
