@@ -28,7 +28,7 @@ def read_list():
 def frequency(item, the_list):
     """
     This function takes a list of integers (the_list) and a single integer (item). It ckecks how many times that
-    single integer appears in the list and returns the count.
+    single integer appears in the list and prints and returns the count.
     the list.
     :param item: A single integer that needs to be checked how many times it is in the list
     :param the_list: A list of integers
@@ -46,15 +46,18 @@ def frequency(item, the_list):
             item_count = item_count + 1
         i = i + 1
 
+    # printing the result
+    print(str(item) + ' appears ' + str(item_count) + ' times')
+
     return item_count
 
 
 def test_frequency():
     """
     This function tests the frequency function. It generates 10 random values and compared the results from the
-    frequency function and pythons built in count function. If it passes, the function returns true else it returns
-    false
-    :return: True if the test passes or false if it doesn't
+    frequency function and pythons built in count function. It also tests the frequency function using a selection of
+    defined lists
+    :return: An assert if the test fails
     """
     random_vals = []
 
@@ -65,32 +68,39 @@ def test_frequency():
     # generating 1 random integer to count
     rand_count_val = random.randrange(0, 10, 1)
 
-    # finding the frequency using frequency and pythons built in count method
-    my_freq = frequency(rand_count_val, random_vals)
-    py_freq = random_vals.count(rand_count_val)
+    # test cases
+    tests = [
+        (random_vals, rand_count_val, random_vals.count(rand_count_val)),
+        ([], 1,  0),
+        ([1, 1, 1, 1, 2], 1, 4),
+        ([1, 2, 3, 4], 5, 0)
+    ]
 
-    # comparing the results
-    if my_freq == py_freq:
-        return True
-    else:
-        return False
+    # looping through every test case
+    for test, item, expected in tests:
+        result = frequency(item, test)
+        assert result == expected, 'Failed on {} - got {}, expected {}'.format(test, result, expected)
 
 
 def main():
+    """
+    This function reads a list of integers from the user using the read_list function, then asks the user for a temop
+    and uses the the frequency to find how many times that value appears in the list
+    faction to
+    :return: NA
+    """
     # Reading the list of temps
     the_list = read_list()
 
     # Getting a temp to count and running frequency function
     count_temp = int(input("Enter a value you would like the frequency of: "))
-    temp_freq = frequency(count_temp, the_list)
 
-    # printing the result
-    print(str(count_temp) + " appeared in the list " + str(temp_freq) + " times.")
+    # calling the frequency function
+    frequency(count_temp, the_list)
 
 
 # calling the main function
 main()
-
 
 
 
