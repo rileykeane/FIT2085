@@ -1,7 +1,7 @@
 """
 @author Riley Keane
 @since 13/3/18
-@modified 13/3/18
+@modified 14/3/18
 """
 
 def read_list():
@@ -27,7 +27,7 @@ def read_list():
 def frequency(item, the_list):
     """
     This function takes a list of integers (the_list) and a single integer (item). It ckecks how many times that
-    single integer appears in the list and returns the count.
+    single integer appears in the list and prints and returns the count.
     the list.
     :param item: A single integer that needs to be checked how many times it is in the list
     :param the_list: A list of integers
@@ -44,6 +44,9 @@ def frequency(item, the_list):
         if the_list[i] == item:
             item_count = item_count + 1
         i = i + 1
+
+    # printing the result
+    print(str(item) + ' appears ' + str(item_count) + ' times')
 
     return item_count
 
@@ -79,6 +82,11 @@ def bubble_sort(the_list):
 
 
 def main():
+    """
+    This function uses the read_list function to get all the values from the user, it the sorts all the values using
+    bubble sort. It then finds the frequency of each number apearing in the list
+    :return:
+    """
     # reading the list of temps
     the_list = read_list()
     # sorting the list of temps
@@ -92,8 +100,7 @@ def main():
         item = the_list[i]
         # finding the frequency of each different integer in the list
         freq_count = frequency(item, the_list)
-        # printing the result
-        print(str(item) + ' appears ' + str(freq_count) + ' times')
+
         # incrementing i by the number of times the integer appeared in the list
         i = i + freq_count
 
