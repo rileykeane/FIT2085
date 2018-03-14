@@ -2,8 +2,9 @@ import random
 """
 @author Riley Keane
 @since 13/3/18
-@modified 13/3/18
+@modified 14/3/18
 """
+
 
 def bubble_sort(the_list):
     """
@@ -38,8 +39,9 @@ def bubble_sort(the_list):
 def test_bubble_sort():
     """
     This function tests the bubble sort function by generating a list of 50 random integers and sorts them using the
-    bubble sort function and pythons built in sort function. It then checks both methods get the same result
-    :return: if the test passes return true, else return false
+    bubble sort function and pythons built in sort function. It then checks both methods get the same result. It also
+    runs the same test for some other defined non random tests
+    :return: An assert if a test fails
     """
     random_vals = []
 
@@ -47,20 +49,20 @@ def test_bubble_sort():
     for i in range(50):
         random_vals.append(random.randrange(0, 100, 1))
 
-    # Creating copies of the random values list
+    # Creating a copy of the random values list and sorting using pythons built in method
     py_sort = random_vals[:]
-    my_sort = random_vals[:]
-
-    # sorting copies using bubble sort and pythons built in method
-    bubble_sort(my_sort)
     py_sort.sort()
 
-    # Checking if both sorted lists are the same
-    if my_sort == py_sort:
-        return True
-    else:
-        return False
+    # test cases
+    tests = [
+        (random_vals, py_sort),
+        ([], []),
+        ([1], [1]),
+        ([5, 4, 3, 2, 1], [1, 2, 3, 4, 5])
+    ]
 
-
-
-
+    # looping through each test case and running each test
+    for test, expected in tests:
+        result = test[:]
+        result = bubble_sort(result)
+        assert result == expected, 'Failed on {} - got {}, expected {}'.format(test, result,expected)
