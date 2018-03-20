@@ -95,7 +95,6 @@ read_list:
 	# i = 0
 	lw $0, -8($fp)
 	
-	
 read_list_loop: 
 	# while i < days	
 	lw $t0, -8($fp) # i
@@ -148,6 +147,7 @@ frequency:
 	.data 
 appears: .asciiz " appears "
 times:   .asciiz " times"
+n:	 .asciiz "\n"
 	
 	.text
 	# saving $fp and $ra on the stack
@@ -228,6 +228,10 @@ end_loop_freq:
 	# printing ' times'
 	addi $v0, $0, 4
 	la $a0, times
+	syscall
+	# printing a new line
+	addi $v0, $0, 4
+	la $a0, n
 	syscall
 	
 	# returning item_count
