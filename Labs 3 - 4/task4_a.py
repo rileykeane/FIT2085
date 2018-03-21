@@ -1,9 +1,9 @@
-import random
 """
 @author Riley Keane
 @since 13/3/18
-@modified 14/3/18
+@modified 21/3/18
 """
+import random
 
 
 def bubble_sort(the_list):
@@ -11,6 +11,10 @@ def bubble_sort(the_list):
     This function uses the bubble sort algorithm to sort a list (the_list) and returns the list in ascending order
     :param the_list: A list of integers
     :return: The same list of integers, sorted in acceding order
+    :pre-condition: The list given to the function must be of orderable elements, that is it can't be numbers and
+    strings, it must be the same.
+    :post-condition: This function will sort the list  in ascending that is inputted into the function and also return
+    the sorted list in ascending order
     """
     # Set the list to not be sorted
     sorted = False

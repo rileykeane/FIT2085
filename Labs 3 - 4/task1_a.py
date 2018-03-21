@@ -1,7 +1,7 @@
 """
 @author Riley Keane
 @since 8/3/18
-@modified 8/3/18
+@modified 21/3/18
 """
 
 
@@ -10,6 +10,8 @@ def is_a_leap_year(year):
     This function takes a year as an integer eg. 2008 and returns True for a leap year or False if its not a leap year
     :param year: A year as an integer false
     :return: A Boolean, True for leap year, False for non leap years
+    :pre-condition: The year must be an integer value and >= 1582
+    :post-condition: The function will return True if the inputted year is a leap year otherwise it will return false.
     """
     if (year % 4 == 0) and (year % 100 != 0) or (year % 400 == 0):
         return True
@@ -22,6 +24,8 @@ def main():
     This function is the main function of the program, it prompts the user for a year and then checks it using the
     is_a_leap_year function. It will print the result to the user
     :return: NA
+    :pre-condition: none
+    :post-condition: none
     """
     # While the user does not want to exit, keep asking for a year
     user_year = int(input('Enter a year: '))

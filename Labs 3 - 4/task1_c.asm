@@ -30,6 +30,7 @@ main:	# Creating space for one variable on the stack
 	div $t0, $t1
 	mfhi $t1		# $t1 = year % 4
 	# comparrison
+	# if year % 4 == 0 is Flase, branch to else_1
 	bne $0, $t1, else_1
 	
 	# if year % 100 == 0
@@ -39,6 +40,7 @@ main:	# Creating space for one variable on the stack
 	div $t0, $t1
 	mfhi $t1		# $t1 = year % 100
 	# comparrison
+	# if year % 100 == 0 is Flase, branch to else_2
 	bne $0, $t1, else_2
 	
 	# if year % 400 == 0
@@ -48,6 +50,7 @@ main:	# Creating space for one variable on the stack
 	div $t0, $t1
 	mfhi $t1 		# $t1 = year % 100
 	# comparrison
+	# if year % 400 == 0 is Flase, branch to else_3
 	bne $0, $t1, else_3
 	
 	# printing is a leap year

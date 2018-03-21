@@ -1,9 +1,9 @@
-import random
 """
 @author Riley Keane
 @since 11/3/18
-@modified 14/3/18
+@modified 21/3/18
 """
+import random
 
 
 def read_list():
@@ -31,6 +31,8 @@ def my_max(the_list):
     This function, given a list of values, will find and return the max value
     :param the_list: a list of integers
     :return: current_max: the max value found in the list or None if the list is empty
+    :pre-condition: A list passed into the function only contains numbers
+    :post-condition: The function will return the maximum value in the list
     """
     list_length = len(the_list)
 
@@ -55,6 +57,8 @@ def my_min(the_list):
     This function, given a list of values, will find and return the min value
     :param the_list: a list of integers
     :return: current_min: the min value found in the list or None if the list is empty
+    :pre-condition: A list passed into the function only contains numbers
+    :post-condition: The function will return the minimum value in the list
     """
     list_length = len(the_list)
     if list_length <= 0:

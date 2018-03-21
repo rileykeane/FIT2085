@@ -1,9 +1,10 @@
-import random
 """
 @author Riley Keane
 @since 13/3/18
-@modified 13/3/18
+@modified 21/3/18
 """
+import random
+
 
 def read_list():
     """
@@ -33,6 +34,10 @@ def frequency(item, the_list):
     :param item: A single integer that needs to be checked how many times it is in the list
     :param the_list: A list of integers
     :return: item_count: The number of times item appeared in the list
+    :pre-condition: The list inputted into the function must be a list of numbers and the item inputted must also be a
+    number that may or may not be in the list
+    :post-condition: The function will return how many times the item appears in the list, if it does not appear the
+    function will return 0
     """
     list_length = len(the_list)
     # initialising counters

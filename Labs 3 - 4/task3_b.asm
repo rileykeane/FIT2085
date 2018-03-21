@@ -7,8 +7,8 @@ freq_count_prompt: .asciiz "Enter a value you would like the frequency of: "
 	
 	.text
 main: 	# allocating local vars
-	# the_list
-	# count_temp
+	# the_list -8($fp)
+	# count_temp -4($fp)
 	add $fp, $0, $sp
 	addi $sp, $sp, -8
 	
@@ -22,7 +22,7 @@ main: 	# allocating local vars
 	addi $v0, $0, 4
 	la $a0, freq_count_prompt
 	syscall
-	# getting value
+	# getting the value
 	addi $v0, $0, 5
 	syscall
 	sw $v0, -4($fp)
@@ -64,7 +64,7 @@ read_list:
 	addi $fp, $sp, 0
 	
 	# allcoating space for locals
-	# days
+	# days 
 	# the_list
 	# i
 	# temp
@@ -113,12 +113,12 @@ read_list_loop:
 	sw $v0, -4($fp)	# stroing inputed temp
 	
 	# the_list[i] = temp
-	lw $t0, -12($fp)
-	lw $t1, -8($fp)
-	lw $t2, -4($fp)
+	lw $t0, -12($fp) # the_list
+	lw $t1, -8($fp) # i
+	lw $t2, -4($fp) # temp
 	sll $t1, $t1, 2
 	add $t0, $t0, $t1
-	sw $t2, 4($t0)
+	sw $t2, 4($t0) # storing temp into the_list[i]
 	
 	# i = i + 1
 	lw $t0, -8($fp)

@@ -149,9 +149,9 @@ read_list_loop:
 	sw $v0, -4($fp)	# stroing inputed temp
 	
 	# the_list[i] = temp
-	lw $t0, -12($fp)
-	lw $t1, -8($fp)
-	lw $t2, -4($fp)
+	lw $t0, -12($fp) # the_list
+	lw $t1, -8($fp) # i
+	lw $t2, -4($fp) # temp
 	sll $t1, $t1, 2
 	add $t0, $t0, $t1
 	sw $t2, 4($t0)

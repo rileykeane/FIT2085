@@ -1,8 +1,9 @@
 """
 @author Riley Keane
 @since 13/3/18
-@modified 14/3/18
+@modified 21/3/18
 """
+
 
 def read_list():
     """
@@ -32,6 +33,10 @@ def frequency(item, the_list):
     :param item: A single integer that needs to be checked how many times it is in the list
     :param the_list: A list of integers
     :return: item_count: The number of times item appeared in the list
+    :pre-condition: The list inputted into the function must be a list of numbers and the item inputted must also be a
+    number that may or may not be in the list
+    :post-condition: The function will return how many times the item appears in the list, if it does not appear the
+    function will return 0
     """
     list_length = len(the_list)
     # initialising counters
@@ -56,6 +61,10 @@ def bubble_sort(the_list):
     This function uses the bubble sort algorithm to sort a list (the_list) and returns the list in ascending order
     :param the_list: A list of integers
     :return: The same list of integers, sorted in acceding order
+    :pre-condition: The list given to the function must be of orderable elements, that is it can't be numbers and
+    strings, it must be the same.
+    :post-condition: This function will sort the list  in ascending that is inputted into the function and also return
+    the sorted list in ascending order
     """
     # Set the list to not be sorted
     sorted = False
@@ -85,7 +94,7 @@ def main():
     """
     This function uses the read_list function to get all the values from the user, it the sorts all the values using
     bubble sort. It then finds the frequency of each number apearing in the list
-    :return:
+    :return: NA
     """
     # reading the list of temps
     the_list = read_list()

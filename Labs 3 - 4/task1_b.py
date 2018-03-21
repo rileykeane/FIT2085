@@ -1,9 +1,10 @@
 """
 @author Riley Keane
 @since 8/3/18
-@modified 11/3/18
+@modified 21/3/18
 """
 
+# getting input from user
 user_year = int(input("Enter a year: "))
 
 # Checking if the year is divisible by 4
