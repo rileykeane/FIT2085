@@ -29,8 +29,6 @@ def table_time_sum_items():
     all_sum_list_times = []
     all_n = []
 
-    csv = open("sum_items_table.csv", "w")
-
     while n <= 4098:
         num_list = []
         start = timeit.default_timer()
@@ -44,9 +42,6 @@ def table_time_sum_items():
         sum_items(num_list)
         sum_list_time = timeit.default_timer() - start
 
-        csv_row = str(n) + ", " + str(gen_list_time) + ", " + str(sum_list_time) + "\n"
-        csv.write(csv_row)
-
         all_n.append(n)
         all_gen_list_times.append(gen_list_time)
         all_sum_list_times.append(sum_list_time)
@@ -58,8 +53,6 @@ def table_time_sum_items():
     # plotting n vs the time taken to run the sum_items function
     plt.plot(all_n, all_sum_list_times)
     plt.show()
-
-    csv.close()
 
 
 table_time_sum_items()
