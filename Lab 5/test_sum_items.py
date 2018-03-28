@@ -80,17 +80,22 @@ def table_time_sum_items():
         n = n << 1
 
     # plotting n vs time to generate a list of random numbers
-    plt.plot(all_n, all_gen_list_times)
+    gen_list_line, = plt.plot(all_n, all_gen_list_times, label="Time to generate list")
+    plt.title("Time to generate list")
     plt.xlabel("n")
-    plt.ylabel("Time taken to generate list (ms)")
-    plt.show()
+    plt.ylabel("Time (ms)")
     # plotting n vs the time taken to run the sum_items function
-    plt.plot(all_n, all_sum_list_times)
+    sum_list_line, = plt.plot(all_n, all_sum_list_times, label="Time to sum list")
+    plt.title("Time to sum list")
     plt.xlabel("n")
-    plt.ylabel("Time taken to sum list (ms)")
+    plt.ylabel("Time (ms)")
+    plt.legend(handles=[gen_list_line, sum_list_line])
     plt.show()
 
     csv.close()
 
 
 table_time_sum_items()
+
+
+
