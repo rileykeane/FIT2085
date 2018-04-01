@@ -1,14 +1,14 @@
-import unsorted_list_ADT
+import unsorted_list_ADT as list_ADT
 
 
 def initialise_board(n):
-    board = unsorted_list_ADT.List(n)
+    board = list_ADT.List(n)
 
     for _ in range(n):
-        row = unsorted_list_ADT.List(n)
+        row = list_ADT.List(n)
         for _ in range(n):
-            unsorted_list_ADT.add_last(row, 0)
-        unsorted_list_ADT.add_last(board, row)
+            list_ADT.add_last(row, 0)
+        list_ADT.add_last(board, row)
 
     return board
 
@@ -41,4 +41,73 @@ def new_position(board, new, current):
     new_r = new[1][0] - 1
     new_c = new[1][1] - 1
     board[1][new_r][1][new_c] = 'K'
+
+
+def next_moves(board, current):
+    moves = list_ADT.List(8)
+
+    move = list_ADT.List(2)
+    list_ADT.add_last(move, current[1][0] + 2)
+    list_ADT.add_last(move, current[1][1] + 1)
+    list_ADT.add_last(moves, move)
+
+    move = list_ADT.List(2)
+    list_ADT.add_last(move, current[1][0] + 2)
+    list_ADT.add_last(move, current[1][1] - 1)
+    list_ADT.add_last(moves, move)
+
+    move = list_ADT.List(2)
+    list_ADT.add_last(move, current[1][0] - 2)
+    list_ADT.add_last(move, current[1][1] + 1)
+    list_ADT.add_last(moves, move)
+
+    move = list_ADT.List(2)
+    list_ADT.add_last(move, current[1][0] - 2)
+    list_ADT.add_last(move, current[1][1] - 1)
+    list_ADT.add_last(moves, move)
+
+    move = list_ADT.List(2)
+    list_ADT.add_last(move, current[1][0] + 1)
+    list_ADT.add_last(move, current[1][1] - 2)
+    list_ADT.add_last(moves, move)
+
+    move = list_ADT.List(2)
+    list_ADT.add_last(move, current[1][0] + 1)
+    list_ADT.add_last(move, current[1][1] + 2)
+    list_ADT.add_last(moves, move)
+
+    move = list_ADT.List(2)
+    list_ADT.add_last(move, current[1][0] - 1)
+    list_ADT.add_last(move, current[1][1] - 2)
+    list_ADT.add_last(moves, move)
+
+    move = list_ADT.List(2)
+    list_ADT.add_last(move, current[1][0] - 1)
+    list_ADT.add_last(move, current[1][1] + 2)
+    list_ADT.add_last(moves, move)
+
+    # checking moves are valid
+    board_length = list_ADT.length(board)
+    for i in range(list_ADT.length(moves)):
+        if moves[1][i][1][0] > board_length or moves[1][i][1][0] < 1 or moves[1][i][1][1] > board_length \
+                or moves[1][i][1][1] < 1:
+            moves[1][i] = None
+
+    for i in range(list_ADT.length(moves)):
+        if moves[1][i] is not None:
+            move_r = moves[1][i][1][0] - 1
+            move_c = moves[1][i][1][1] - 1
+            if board[1][move_r][1][move_c] == '*':
+                moves[1][i] = None
+
+    valid_moves = list_ADT.List(8)
+    for i in range(list_ADT.length(moves)):
+        if moves[1][i] is not None:
+            move = list_ADT.List(2)
+            list_ADT.add_last(move, moves[1][i][1][0])
+            list_ADT.add_last(move, moves[1][i][1][1])
+            list_ADT.add_last(valid_moves,move)
+
+    return valid_moves
+
 
