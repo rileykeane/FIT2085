@@ -112,12 +112,12 @@ def table_avg_time_shaker_sort():
     csv.write(csv_row)
 
     # looping through until n is 1024.
-    while n <= 100:
+    while n <= 1024:
         sum_shaker_sort_times = 0
         gen_list_time = 0
 
         # generating 100 lists of random values
-        for i in range(1000):
+        for i in range(100):
             start = timeit.default_timer()
             rand_list = []
             # generating a random list of n numbers
@@ -136,7 +136,7 @@ def table_avg_time_shaker_sort():
         all_gen_list_times.append(gen_list_time)
 
         # calculating average time to sort all 100 random lists
-        average_sort_time = sum_shaker_sort_times / 1000
+        average_sort_time = sum_shaker_sort_times / 100
         # appending to list with all averages
         all_avg_shaker_sort_times.append(average_sort_time)
         # appending n to all the list with all tge n values
@@ -146,7 +146,7 @@ def table_avg_time_shaker_sort():
         csv.write(csv_row)
 
         # n = 2^n
-        n = n + 1
+        n = n << 1
 
     csv.close()
 
@@ -157,9 +157,9 @@ def plot_table():
     shaker_sort_times = table_time_shaker_sort()
     avg_shaker_sort_times = table_avg_time_shaker_sort()
 
-    #shaker_line, = plt.plot(shaker_sort_times[0], shaker_sort_times[2], label='Shaker Sort')
+    shaker_line, = plt.plot(shaker_sort_times[0], shaker_sort_times[2], label='Shaker Sort')
     avg_shaker_line, = plt.plot(avg_shaker_sort_times[0], avg_shaker_sort_times[2], label='Average Shaker Sort')
-    #plt.legend(handles=[shaker_line, avg_shaker_line])
+    plt.legend(handles=[shaker_line, avg_shaker_line])
     plt.xlabel('N')
     plt.ylabel('Time (ms)')
     plt.title('Shaker Sort Times vs Average Shaker Sort Times')
