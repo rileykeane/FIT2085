@@ -154,6 +154,26 @@ def delete_item(the_list, delitem):
     return found  
 
 
+def set_item(the_list, index, item):
+    """
+    sets the element in the given index to the given item
+
+    @param          the_list data structure
+    @param          index of element to set
+    @:param         item to be set
+    @pre            index is integer between zero and len(list)-1 and must exist in the list
+    @post           index will be set to item
+    @complexity     best and worst case: O(1)
+    """
+    [length, the_array] = the_list
+    try:
+        assert int(index) == index
+        assert 0 <= index <= length - 1
+    except (AssertionError, ValueError):
+        raise IndexError('index not an integer within range')
+    the_array[index] = item
+
+
 def test_is_empty():
     li = List(3)
     assert is_empty(li)
