@@ -2,6 +2,7 @@
 *.xml
 
 *.iml
+<<<<<<< HEAD
 
 Lab 3 - 4/task1_a.py
 
@@ -28,3 +29,5 @@ Lab 3 - 4/task5_b.asm
 *.csv
 
 *.pyc
+=======
+>>>>>>> parent of 5c05c1d... Ignore file path changes
