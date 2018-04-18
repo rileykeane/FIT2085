@@ -31,6 +31,7 @@ def List(size):
     the_array = [None] * size
     return [length, the_array]
 
+
 def length(the_list):
     """
     Returns the length of the list.
@@ -42,6 +43,7 @@ def length(the_list):
     length = the_list[0]
     return length
 
+
 def is_empty(the_list):
     """
     Determines if the list has any elements.
@@ -52,6 +54,7 @@ def is_empty(the_list):
     """
     length = the_list[0]
     return length == 0
+
 
 def is_full(the_list):
     """
@@ -65,6 +68,7 @@ def is_full(the_list):
     [length,the_array] = the_list
     return length >= len(the_array)
 
+
 def reset(the_list):
     """
     Resets the list to an empty state.
@@ -74,6 +78,7 @@ def reset(the_list):
     @complexity     best and worst case: O(1)
     """
     the_list[0] = 0
+
 
 def get_item(the_list, index):
     """
@@ -92,6 +97,7 @@ def get_item(the_list, index):
     except (AssertionError, ValueError):
         raise IndexError('index not an integer within range')
     return the_array[index]
+
 
 def add_last(the_list, new_item):
     """
@@ -130,6 +136,7 @@ def index(the_list, item):
         if the_array[i] == item:      #found
             return i
     return None
+
 
 def delete_item(the_list, delitem):
     """
@@ -172,6 +179,59 @@ def set_item(the_list, index, item):
     except (AssertionError, ValueError):
         raise IndexError('index not an integer within range')
     the_array[index] = item
+
+
+def extend_length(the_list):
+    """
+    extend the length of a list by 1
+
+    @param          the_list data structure
+    @return         the same list but with an extra None element
+    @post           the list length will increase by 1
+    @complexity     best and worst case: O(n) where n is the length of the list
+    """
+    [length, array] = the_list
+    new_length = len(array) + 1
+    new_array = List(new_length)
+    for i in range(length):
+        add_last(new_array, array[i])
+    the_list[0] = new_array[0]
+    the_list[1] = new_array[1]
+    return the_list
+
+
+def delete_last(the_list):
+    """
+    remove the last item in the list
+
+    @param          the_list data structure
+    @return         the last element in the list that was removed
+    @pre            the list must be of at least length 1
+    @post           the list length will decrease by 1
+    @post           the last element in the list will become garbage
+    @complexity     best and worst case: O(1)
+    """
+    [length, array] = the_list
+    if length < 1:
+        raise Exception('The list must have at least 1 element')
+
+    new_length = length - 1
+    the_list[0] = new_length
+
+    return array[length-1]
+
+
+def size(the_list):
+    """
+    Returns the set size of the list
+
+    @param      the_list data structure
+    @return     the size of the list
+    @complexity best and worst case: O(1)
+    """
+    [_, array] = the_list
+    size = len(array)
+    return size
 
 
 def test_is_empty():
@@ -237,6 +297,26 @@ def test_delete_item():
     assert delete_item(li, 7)
     assert li==[5,[5,3,1,6,8,8,8,8,8,8]]
 
+def test_extend_length():
+    li=[10,[5,3,10,0,9,1,4,6,7,8]]
+    assert extend_length(li)
+    assert extend_length(li)
+    assert extend_length(li)
+    assert li==[10,[5,3,10,0,9,1,4,6,7,8,None,None,None]]
+
+def test_delete_last():
+    li=[10,[5,3,10,0,9,1,4,6,7,8]]
+    assert delete_last(li)
+    assert delete_last(li)
+    assert delete_last(li) == 6
+    assert li==[7,[5,3,10,0,9,1,4,6,7,8]]
+
+def test_size():
+    assert size([3, [4,5,7,None,None,None]]) == 6
+    assert size([5, [1,2,3,4,5]])
+    assert size([0, [None,None,None,None]]) == 4
+
+
 if __name__ == '__main__':
     """minimal sanity tests"""
     li = List(10)
@@ -247,6 +327,9 @@ if __name__ == '__main__':
     test_get_item()
     test_index()
     test_delete_item()
+    test_extend_length()
+    test_delete_last()
+    test_size()
     reset(li)
     assert length(li) == 0
     assert is_empty(li)
