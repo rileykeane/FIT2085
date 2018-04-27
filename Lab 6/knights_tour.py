@@ -87,19 +87,20 @@ def main():
 
     quit_game = False
     while not quit_game:
-        tour.print_tour(the_tour)
         user_choice = game_menu()
 
         # MENU CHOICE - Position
         if user_choice == 1:
+            tour.print_tour(the_tour)
             position(the_tour)
 
         # MENU CHOICE - Undo
         if user_choice == 2:
             try:
                 tour.undo_move(the_tour)
+                tour.print_tour(the_tour)
             except Exception:
-                print('The tour must have made at least one move to undo.')
+                print('The tour must have made at least one move to undo.\n')
 
         # MENU CHOICE - Start Over
         if user_choice == 3:

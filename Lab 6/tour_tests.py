@@ -66,7 +66,6 @@ def test_next_moves_str():
     print(next_moves_str(moves))
 
 
-"""
 test_initialise_tour()
 test_new_position()
 test_next_moves()
@@ -75,4 +74,3 @@ test_check_position()
 
 test_print_tour()
 test_next_moves_str()
-"""

@@ -31,7 +31,7 @@ def print_tour(tour):
     for _ in range(n):
         row = list_ADT.List(n)
         for _ in range(n):
-            list_ADT.add_last(row, 0)
+            list_ADT.add_last(row, '.')
         list_ADT.add_last(board, row)
 
     # setting previous positions in board to '*'s
