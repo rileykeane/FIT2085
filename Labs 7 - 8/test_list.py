@@ -86,6 +86,8 @@ def test_get_item():
     tests = [
         (0, 0),
         (3, 3),
+        (5, 5),
+        (2, 2),
         (-1, 5),
         (-6, 0)
     ]
@@ -96,8 +98,13 @@ def test_get_item():
 
     try:
         test_list[6]
+        assert True is False, ('Should have raised an indexError')
+    except IndexError:
+        True
+
+    try:
         test_list[-7]
-        print('Test failed, should have raised an indexError')
+        assert True is False, ('Should have raised an indexError')
     except IndexError:
         True
 
@@ -115,12 +122,22 @@ def test_set_item():
     test_list[6] = 14
     exp_result.unsafe_set_array([2, 2, 3, 8, 5, 6, 14, None, None, None], 7)
     assert test_list == exp_result, "Failed on test 1 - expected " + str(exp_result) + ", got " + str(test_list)
+    test_list[-1] = 5
+    test_list[-7] = 8
+    exp_result.unsafe_set_array([8, 2, 3, 8, 5, 6, 5, None, None, None], 7)
+
     try:
-        test_list[7] = 10
-        test_list[-8] = -10
-        print("Should have raised an IndexError")
+        test_list[7] = 7
+        assert True is False, ('Should have raised an indexError')
     except IndexError:
         True
+
+    try:
+        test_list[-8] = 7
+        assert True is False, ('Should have raised an indexError')
+    except IndexError:
+        True
+
     print('set_item passed all tests')
 
 
@@ -175,17 +192,25 @@ def test_insert():
     y.unsafe_set_array([1, 2, 3, 5, 6, 7, None], 6)
     x.insert(2, 3)
     assert (x == y), "Should be True but it is" + "x=" + str(x) + "y=" + str(y)
+    x.insert(0, 0)
+    y.unsafe_set_array([0, 1, 2, 3, 5, 6, 7], 7)
+    assert (x == y), "Should be True but it is" + "x=" + str(x) + "y=" + str(y)
+    x.insert(-1, 4)
+    y.unsafe_set_array([0, 1, 2, 3, 5, 6, 4, 7], 8)
+    assert (x == y), "Should be True but it is" + "x=" + str(x) + "y=" + str(y)
+    x.insert(-8, 5)
+    y.unsafe_set_array([5, 0, 1, 2, 3, 5, 6, 4, 7], 9)
+
     try:
-        x.insert(12,2)
-        print("Should have raised IndexError")
+        x.insert(9,2)
+        assert True is False, "Should have raised IndexError"
     except IndexError:
-        x.insert(0, 0)
-        y.unsafe_set_array([0, 1, 2, 3, 5, 6, 7], 7)
-        assert (x == y), "Should be True but it is" + "x=" + str(x) + "y=" + str(y)
+        True
+
     try:
-        x.insert(1, 2)
-        print("Should have raised Exception")
-    except Exception:
+        x.insert(-10, 2)
+        assert True is False, "Should have raised IndexError"
+    except IndexError:
         True
 
     print('insert passed all tests')
@@ -193,7 +218,7 @@ def test_insert():
 
 def test_contains():
     x = List()
-    assert (2 in x) == False, "Should be False as x is empty but it is" + str(x)
+    assert (2 in x) is False, "Should be False as x is empty but it is" + str(x)
     x.append(2)
     assert (2 in x), "Should be True as x=[2] but it is" + str(x)
     x.unsafe_set_array([4, 2, 3, None, None], 3)
@@ -231,9 +256,15 @@ def test_delete():
     item = x.delete(0)
     y.unsafe_set_array([2, 6, 7, None, None], 3)
     assert (item == 1 and x == y), "Should be True but it is" + "item=" + str(item) + "x=" + str(x) + "y=" + str(y)
+    item = x.delete(-1)
+    y.unsafe_set_array([2, 6], 2)
+    assert (item == 7 and x == y)
+    item = x.delete(-2)
+    y.unsafe_set_array([6], 1)
+    assert (item == 2 and x == y)
     try:
-        x.delete(12)
-        print("Should have raised IndexError")
+        x.delete(1)
+        assert True is False, "Should have raised IndexError"
     except IndexError:
         True
 
@@ -276,6 +307,7 @@ def test_resize():
     array_len = len(test_list._the_array)
     assert array_len == 100, 'Fail on test 3, expected 100, got {}'.format(array_len)
 
+    print("resize passed all tests")
 
 def main():
     test_is_empty()
