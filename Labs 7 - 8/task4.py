@@ -54,20 +54,12 @@ def insert_line(command):
         print('Line number is out of range')
 
 
-def search_string(command):
-    try:
-        my_file.search_string(command[1])
-    except FileNotFoundError:
-        print('No file has been read yet')
-
-
 def main():
     print('Text Editor\n-------------\nCommands:\n'
           'read [filename] -- reads the specified file\n'
           'print [num] -- prints the line at num, leave num blank to print the entire file\n'
           'delete [num] -- deletes the line at num, leave blank to delete the entire file\n'
           'insert [num] -- insert a string at line num\n'
-          'search [string] -- retruns the line numbers containing string\n'
           'quit -- quits the program\n')
 
     quit_editor = False
@@ -87,9 +79,6 @@ def main():
 
             elif command[0] == 'insert':
                 insert_line(command)
-
-            elif command[0] == 'search':
-                search_string(command)
 
             elif command[0] == 'quit':
                 quit_editor = True
