@@ -16,7 +16,7 @@ def read_text_file(name):
 def test_read_text_file():
     # creating tests
     test1 = read_text_file('small.tex')
-    test2 = read_text_file('small.txt')
+    test2 = read_text_file('test1.txt')
 
     # created
     exp_result1 = List()
@@ -28,5 +28,6 @@ def test_read_text_file():
     assert test2 == exp_result2, 'Failed on test 2, expected {} but got {}.'.format(str(test2), str(exp_result2))
 
     print('read text file passed all tests')
+
 
 test_read_text_file()
