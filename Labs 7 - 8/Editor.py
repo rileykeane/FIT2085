@@ -39,11 +39,14 @@ class Editor:
             raise ValueError('line_num must be an integer')
 
         # checking line_num is within range
-        if line_num < 1 or line_num > len(self._text_lines):
+        if line_num < -1 * len(self._text_lines) or line_num > len(self._text_lines) or line_num == 0:
             raise IndexError('line_num is not within range')
 
         # printing line at line_num
-        line = self._text_lines[line_num - 1]
+        if line_num > 0:
+            line = self._text_lines[line_num - 1]
+        else:
+            line = self._text_lines[line_num]
         print(line)
         return line
 
@@ -63,15 +66,21 @@ class Editor:
             raise ValueError('line_num must be an integer')
 
         # checking line_num is within range
-        if line_num < 1 or line_num > len(self._text_lines):
+        if line_num < -1 * len(self._text_lines) or line_num > len(self._text_lines) or line_num == 0:
             raise IndexError('line_num is not within range')
 
         # saving to the stack before deleting
         if self._performing_undo is False:
-            self._undo_stack.push(('delete', line_num, self._text_lines[line_num - 1]))
+            if line_num > 0:
+                self._undo_stack.push(('delete', line_num, self._text_lines[line_num - 1]))
+            else:
+                self._undo_stack.push(('delete', line_num, self._text_lines[line_num]))
 
         # deleting the line at num
-        self._text_lines.delete(line_num - 1)
+        if line_num > 0:
+            self._text_lines.delete(line_num - 1)
+        else:
+            self._text_lines.delete(line_num)
 
     def insert_num(self, item, line_num=None):
         # checking a file has been read
@@ -89,18 +98,27 @@ class Editor:
             raise ValueError('line_num must be an integer')
 
         # checking line_num is within range
-        if line_num < 1 or line_num > len(self._text_lines) + 1:
+        if line_num < -1 * len(self._text_lines) or line_num >= len(self._text_lines) or line_num == 0:
             raise IndexError('line_num is not within range')
 
+        # inserting items at line num
         if item == '.':
             return
-        elif line_num <= len(self._text_lines):
-            self._text_lines.insert(line_num - 1, item)
-        else:
+        elif line_num is None:
             self._text_lines.append(item)
+        elif line_num > len(self._text_lines):
+            self._text_lines.append(item)
+        elif line_num < -1:
+            self._text_lines.insert(line_num + 1, item)
+        else:
+            self._text_lines.insert(line_num - 1, item)
 
+        # Adds inserted item to the stack
         if self._performing_undo is False:
-            self._undo_stack.push(('insert', line_num))
+            if line_num > 0:
+                self._undo_stack.push(('insert', line_num))
+            elif line_num < 0:
+                self._undo_stack.push(('insert', line_num - 1))
 
     def search_string(self, string):
         # checking a file has been read

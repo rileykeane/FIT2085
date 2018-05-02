@@ -44,7 +44,10 @@ def insert_line(command):
         line = input()
         while line != '.':
             my_file.insert_num(line, line_no)
-            line_no += 1
+            if line_no > 0:
+                line_no += 1
+            else:
+                line_no -= 1
             line = input()
     except FileNotFoundError:
         print('No file has been read yet')
