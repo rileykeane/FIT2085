@@ -187,13 +187,13 @@ def test_eq():
 
 def test_insert():
     x = List()
-    x.unsafe_set_array([1, 2, 5, 6, 7, None, None], 5)
+    x.unsafe_set_array([1, 2, 5, 6, 7, None, None, None, None], 5)
     y = List()
-    y.unsafe_set_array([1, 2, 3, 5, 6, 7, None], 6)
+    y.unsafe_set_array([1, 2, 3, 5, 6, 7, None, None, None], 6)
     x.insert(2, 3)
     assert (x == y), "Should be True but it is" + "x=" + str(x) + "y=" + str(y)
     x.insert(0, 0)
-    y.unsafe_set_array([0, 1, 2, 3, 5, 6, 7], 7)
+    y.unsafe_set_array([0, 1, 2, 3, 5, 6, 7, None, None], 7)
     assert (x == y), "Should be True but it is" + "x=" + str(x) + "y=" + str(y)
     x.insert(-1, 4)
     y.unsafe_set_array([0, 1, 2, 3, 5, 6, 4, 7], 8)

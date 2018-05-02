@@ -3,6 +3,20 @@ import math
 
 class List:
     def __init__(self, size=40, can_resize=True):
+        """
+        Creates and instance of list
+
+        param       size: The initial size of the array, set to 40 if left blank
+        param       can_resize: A boolean value stating if the array can resize or not. set to True if left blank
+        pre         size must be an integer
+        pre         can_resize must be a boolean
+        post        The list will always have a minimum size of 40 even if you declare it will a size less than
+        complexity  best = worst: O(1)
+        """
+
+        if type(size) is not int:
+            raise ValueError('Size must be an integer')
+
         self._length = 0
         self._min_size = size
         self._can_resize = can_resize
@@ -130,6 +144,8 @@ class List:
         return      True if the lists are equal or false is they are not
         pre         self must be an instance created with the List class
         post        only valid data, that is data in the array from 0 to length - 1 will be compared
+        complexity  best: O(m) where m is the complexity of comparison. If the first item in the arrays are not equal
+        complexity  worst: O(m*n) where m in complexity of comparison and n is length of the list. If arrays are equal
         """
         # returning false if self and other are not the same type or length
         if type(other) is not type(self) or self._length != other._length:
@@ -147,8 +163,9 @@ class List:
 
         parm        item: the item that you are looking for in the list
         return      true if item in in the list else, false
-        complexity  best: O(1) if the item is the first element in the list
-        complexity  worst: O(n) where n is the length of the list and occurs when item in not in the list
+        complexity  best: O(m) where m is complexity of comparison. If the item is the first element in the list
+        complexity  worst: O(n*m) where n is the length of the list and m is complexity of comparison and occurs when
+                    item in not in the list
         """
         for i in range(self._length):
             if item == self._the_array[i]:
@@ -156,6 +173,16 @@ class List:
         return False
 
     def append(self, item):
+        """
+        Adds item to the end of the list
+
+        param       item: the item to be added to the end of the list
+        pre         If not resizable, list must not be full
+        post        If resizeable, the list will resize if full
+        post        everything before the appended item will remain in same position
+        complexity  best: O(1) if the list does not have to resize
+        complexity  worst: O(n) where n is the length of the list. When the list is full and must resize
+        """
         # if the list cannot resize, check its not full
         if self.is_full() and not self._can_resize:
             raise Exception('List is full')
@@ -168,6 +195,19 @@ class List:
         self._length += 1
 
     def insert(self, index, item):
+        """
+        Inserts an item in the specified index
+
+        param       index: the index in you want to item to be in
+        param       item: what you are adding to the list
+        pre         index must be an integer and within range
+        pre         if list is not resizable, it must not be full
+        post        every item to the at index - length - 1 will be shifted to the right
+        post        all items before index will remain in the same place
+        post        if the list is reliable and full, it will resize
+        complexity  best: O(1) if the list does not have to resize and inserting at the end
+        complexity  worst: O(n) where n is the length of the list. If the list has to resize and inserting at the start
+        """
         if (index < -1 * len(self)) or (index >= len(self)):
             raise IndexError('Index must be within range of list')
 
@@ -190,6 +230,22 @@ class List:
         self._the_array[index] = item
 
     def delete(self, index):
+        """
+        Deletes the item at the specified index
+
+        param       index: the index at which the item is you want to delete
+        pre         index must be within range
+        pre         index must be an integer
+        pre         the list must not be empty
+        post        if list is reliable, it will shrink if length is less then 1/4 size after deletion
+        post        everything to the right of index will shift one position to the left
+        complexity  best: O(1) if deleting index at the end and list does not have to resize
+        complexity  worst: O(n) if deleting index from the start and the list has to resize
+        """
+
+        if not self._can_resize and self.is_empty():
+            raise Exception('The list is empty')
+
         if (index < -1 * len(self)) or (index >= len(self)):
             raise IndexError('Index must be within range of list')
 
@@ -207,6 +263,17 @@ class List:
         return item
 
     def remove(self, item):
+        """
+        Removes a specified item from the list
+
+        param       item: the item you want to remove from the list
+        post        if list is reliable, it will shrink if length is less then 1/4 size after deletion
+        post        everything to the right of index will shift one position to the left
+        complexity  best: O(m) where m is the complexity of the comparison if deleting item at the end and list does
+                    not have to resize
+        complexity  worst: O(n*m) where m is the complexity of the comparison and n is the length of the list. If item
+                    is not in the list. and the list has to resize
+        """
         found = False
         i = 0
         while i < self._length:
@@ -222,6 +289,19 @@ class List:
             self.resize()
 
     def resize(self):
+        """
+        Re sizes the array by when is full or too empty
+
+        pre         the list must be defined
+        pre         resizable must be true
+        post        if the list is full it be resize by 1.7 * its length
+        post        if the list is less then 1/4 full the size will reduce by half
+        post        length of the list will remain the same
+        post        all elements in the list will stay the same
+        post        the size of the list will never be less then the size defined at the start
+        complexity  best: O(1) if the list is not full or less then 1/4 empty
+        complexity  worst: O(n) if the list has to increase or decrease
+        """
         array_size = len(self._the_array)
 
         if self.is_full():
