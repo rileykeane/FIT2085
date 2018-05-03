@@ -122,6 +122,7 @@ def test_search_string():
 
     print('search_string passed all tests')
 
+
 def main():
     print('Testing read_filename')
     test_read_filename()

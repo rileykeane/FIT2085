@@ -74,6 +74,7 @@ def main():
     while quit_editor is False:
 
         command = input('Enter a command: ')
+        command = command.strip()
         command = command.split(' ', 1)
         try:
             if command[0] == 'read':

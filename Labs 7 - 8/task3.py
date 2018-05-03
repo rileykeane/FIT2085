@@ -2,6 +2,20 @@ from task2 import List
 
 
 def read_text_file(name):
+    """
+    Imports a text file into a list
+
+    param       name: the name of the file you want to import
+    return      The list containing each line of the file
+    pre         name must be a string
+    pre         the file you are importing must exist within the directory of the code
+    post        the list with have each line as a new item
+    complexity  best = worst: O(n) where n is the number of lines in the text file.
+    """
+
+    if type(name) is not str:
+        raise ValueError('name must be a string')
+
     file = open(name, 'r')
     file_list = List()
 
