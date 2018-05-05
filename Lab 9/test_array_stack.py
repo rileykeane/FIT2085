@@ -54,9 +54,9 @@ def test_str():
     x = Stack()
     assert str(x) == "", "Should be empty string but it is" + str(x)
     x.push(2)
-    assert str(x) == "2 ", "Should be a 2 string but it is" + str(x)
+    assert str(x) == "2", "Should be a 2 string but it is" + str(x)
     x.unsafe_set_array([1, 2, 3, None, None], 3)
-    assert str(x) == "1 2 3 ", "Should be a 1 2 3 string but it is" + str(x)
+    assert str(x) == "1 2 3", "Should be a 1 2 3 string but it is" + str(x)
 
 def test_resize():
     x = Stack(100)
@@ -77,7 +77,7 @@ def test_resize():
         x.pop()
     assert len(x._array) == 100, "Should be 100 but is " + str(len(x._array))
 
-def main(array=True):
+def main():
     # Run the tests when the module is called from the command line
     print("Testing is_empty")
     test_is_empty()
@@ -91,9 +91,8 @@ def main(array=True):
     test_len()
     print("Testing __str__")
     test_str()
-    if array:
-        print("Testing resize")
-        test_resize()
+    print("Testing resize")
+    test_resize()
 
 
 if __name__ == "__main__":
