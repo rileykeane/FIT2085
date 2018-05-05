@@ -26,11 +26,14 @@ class Stack:
         return True
 
     def __str__(self):
-        my_str = ''
+        out_str = ''
         for i in range(len(self)):
-            my_str += str(self._array[i]) + ' '
+            out_str += str(self._array[i]) + ' '
+        # removing last space
+        if len(out_str) > 0:
+            out_str = out_str[:-1]
 
-        return my_str
+        return out_str
 
     def is_empty(self):
         return self._top == 0
