@@ -35,17 +35,17 @@ def main():
     dict_files = ['english_small.txt', 'english_large.txt', 'french.txt']
 
     # created a csv file to import results into
-    results = open("task2_results.csv", "w")
+    results = open("results/task2_results.csv", "w")
     result_tiles = "File" + "," + "b" + "," + "Table Size" + "," + "Time"
     results.write(result_tiles + '\n')
 
     # testing times for each file and each combination of size and b
     for dictionary in dict_files:
-        results.write(str(dictionary) + '\n')
+        results.write(dictionary + '\n')
         for size in table_sizes:
             for b in b_values:
                 start = timeit.default_timer()
-                import_keys(dictionary, b, size)
+                import_keys("text_files/" + dictionary, b, size)
                 time = (timeit.default_timer() - start)
                 hash_result = "" + "," + str(b) + "," + str(size) + "," + str(time)
                 results.write(hash_result + "\n")
