@@ -12,6 +12,10 @@ class HashTable:
         self._array = [None] * size
         self._table_size = size 
         self._b = b
+        self._collisions = 0
+        self._total_probe_length = 0
+        self._longest_probe = 0
+        self._rehashes = 0
 
     def __setitem__(self, key, item):
         """
@@ -28,12 +32,16 @@ class HashTable:
         """
         # getting item position by hashing key
         pos = self.hash(key)
+        probe_length = 0
 
         for _ in range(self._table_size):
             # if position is empty
             if self._array[pos] is None:
                 self._array[pos] = (key, item)
                 self._count += 1
+                self._total_probe_length += probe_length
+                if probe_length > self._longest_probe:
+                    self._longest_probe = probe_length
                 return 
             # if key is in use, update with new item
             elif self._array[pos][0] == key:
@@ -42,8 +50,13 @@ class HashTable:
             else:
                 # if full go to next position
                 pos = (pos + 1) % self._table_size
+                if probe_length == 0:
+                    self._collisions += 1
+                probe_length += 1
+        
         # resizing if full
         self.rehash()
+        self._rehashes += 1
         self[key] = item
 
     def __getitem__(self, key):
@@ -149,9 +162,22 @@ class HashTable:
         self._table_size = new_table_size
         self._array = [None] * self._table_size
         self._count = 0
+        self._collisions = 0
+        self._total_probe_length = 0
+        self._longest_probe = 0
 
         # rehashing everything in current array and putting it in new one
         for i in range(old_table_size):
             if old_array[i] is not None:
                 self[old_array[i][0]] = old_array[i][1]
+
+    def collision_info(self):
+        """
+        returns the info on collisions 
+
+        :return     a tuple containing the number of collions, length of all probes, longest probe and number of rehashes 
+        :pre        the hash table must be defined 
+        :complexity best = worst: O(1)
+        """
+        return (self._collisions, self._total_probe_length, self._longest_probe, self._rehashes)
 
