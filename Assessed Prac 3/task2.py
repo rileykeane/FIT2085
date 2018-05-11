@@ -2,53 +2,57 @@ from task1 import HashTable
 import timeit
 
 
-def read_text_file(name):
+def import_keys(keys_file, b, size):
     """
-    Imports a text file into a list
+    Imports a file of keys into a hash table
 
-    param       name: the name of the file you want to import
-    return      The list containing each line of the file
-    pre         name must be a string
-    pre         the file you are importing must exist within the directory of the code
-    post        the list with have each line as a new item
-    complexity  best = worst: O(n) where n is the number of lines in the text file.
+    :param      keys_file: a file containing all the keys you want in the table
+    :param      b: the b value used in the hash function 
+    :param      size: the size you want the hash table to be
+    :return     The hash table with all the keys
+    :pre        the keys in the file must all be strings 
+    :pre        keys_file must be a string and a file within the project file
+    :pre        b and size must be integers 
+    :post       all keys will be put in the table with the data as integer 1
+    :complexity best= worst = O(n) where n is the size of keys_file
     """
+    if type(keys_file) is not str:
+        raise ValueError('keys_file must be a string')
 
-    if type(name) is not str:
-        raise ValueError('name must be a string')
-
-    file = open(name, 'r')
-    file_list = []
-
-    for line in file:
-        file_list.append(line.strip('\n'))
-
+    # importing keys from text
+    file = open(keys_file, 'r')
+    hash_table = HashTable(size, b)
+    for key in file:
+        key = key.strip('\n')
+        hash_table[key] = 1
     file.close()
 
-    return file_list
+    return hash_table
+
+def main():
+    b_values = [1, 27183, 250725]
+    table_sizes = [250727, 402221, 1000081]
+    dict_files = ['english_small.txt', 'english_large.txt', 'french.txt']
+
+    # created a csv file to import results into
+    results = open("task2_results.csv", "w")
+    result_tiles = "File" + "," + "b" + "," + "Table Size" + "," + "Time"
+    results.write(result_tiles + '\n')
+
+    # testing times for each file and each combination of size and b
+    for dictionary in dict_files:
+        results.write(str(dictionary) + '\n')
+        for size in table_sizes:
+            for b in b_values:
+                start = timeit.default_timer()
+                import_keys(dictionary, b, size)
+                time = (timeit.default_timer() - start)
+                hash_result = "" + "," + str(b) + "," + str(size) + "," + str(time)
+                results.write(hash_result + "\n")
+        print(dictionary + ' completed')
+
+    results.close()
 
 
-b_values = [1, 27183, 250726]
-table_sizes = [250727, 402221, 1000081]
-dict_files = ['english_small.txt', 'english_large.txt', 'french.txt']
-
-results = open("task2_results.csv", "w")
-result_tiles = "File" + "," + "b" + "," + "Table Size" + "," + "Time"
-results.write(result_tiles + '\n')
-
-for dictionary in dict_files:
-    keys = read_text_file(dictionary)
-    results.write(str(dictionary) + '\n')
-
-    for size in table_sizes:
-        for b in b_values:
-            hash_table = HashTable(size, b)
-            start = timeit.default_timer()
-            for key in keys:
-                hash_table[key] = 1
-            time = (timeit.default_timer() - start)
-            hash_result = "" + "," + str(b) + "," + str(size) + "," + str(time)
-            results.write(hash_result + "\n")
-
-results.close()
-
+if __name__ == "__main__":
+    main()
