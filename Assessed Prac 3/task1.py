@@ -1,5 +1,5 @@
 class HashTable:
-    def __init__(self, size=7013):
+    def __init__(self, size=7013, b=27183):
         """
         Created an instance of a hash table
 
@@ -11,6 +11,7 @@ class HashTable:
         self._count = 0
         self._array = [None] * size
         self._table_size = size 
+        self._b = b
 
     def __setitem__(self, key, item):
         """
@@ -110,10 +111,9 @@ class HashTable:
 
         value = 0
         a = 31415
-        b = 27183
         for char in key:
             value = (ord(char) + a*value) % self._table_size
-            a = a * b % self._table_size
+            a = a * self._b % (self._table_size - 1)
 
         return value
 

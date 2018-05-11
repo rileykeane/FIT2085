@@ -4,22 +4,21 @@ def test_setitem():
     test_table = HashTable(7)
     assert test_table._array == [None] * 7, 'Failed on test 1'
     test_table['riley'] = 19
-    assert test_table._array == [None, None, None, None, None, None, ('riley', 19)], 'Failed on test 2'
+    assert test_table._array == [None, None, None, None, ('riley', 19), None, None], 'Failed on test 2'
     test_table['sally'] = 28
     test_table['rileyy'] = 18
-    assert test_table._array == [('rileyy', 18), None, ('sally', 28), None, None, None, ('riley', 19)], 'Failed on test 3'
+    assert test_table._array == [('rileyy', 18), None, ('sally', 28), None, ('riley', 19), None, None], 'Failed on test 3'
     test_table['bill'] = 65
     test_table['daniel'] = 19
     test_table['steve'] = 25
     test_table['alan'] = 55
     test_table['rileyy'] = 35
     test_table['bill'] = 100
-    assert test_table._array == [
-        ('rileyy', 35), ('bill', 100), ('sally', 28), ('daniel', 19), 
-        ('steve', 25), ('alan', 55), ('riley', 19)], 'Failed on test 4'  
+    assert test_table._array == [('rileyy', 35), ('steve', 25), ('sally', 28), ('alan', 55), 
+        ('riley', 19), ('bill', 100), ('daniel', 19)], 'Failed on test 4' 
     test_table['scott'] = 45
-    assert test_table._array ==  [None, None, ('rileyy', 35), ('sally', 28), ('riley', 19), 
-        None, ('bill', 100), ('daniel', 19), ('alan', 55), None, None, None, None, None, ('scott', 45), None, ('steve', 25)]   
+    assert test_table._array ==  [None, None, ('steve', 25), None, ('sally', 28), ('alan', 55), 
+        ('bill', 100), ('riley', 19), ('scott', 45), None, None, None, None, None, ('rileyy', 35), None, ('daniel', 19)] 
 
 
 def test_getitem():
@@ -66,8 +65,8 @@ def test_rehash():
     test_table.rehash()
     assert test_table._count == 7
     assert test_table._table_size == 17
-    assert test_table._array == [None, None, ('rileyy', 18), ('sally', 28), ('riley', 19), 
-        None, ('bill', 65), ('daniel', 19), ('alan', 55), None, None, None, None, None, None, None, ('steve', 25)]
+    assert test_table._array == [None, None, ('steve', 25), None, ('sally', 28), ('alan', 55), 
+        ('bill', 65), ('riley', 19), None, None, None, None, None, None, ('rileyy', 18), None, ('daniel', 19)]
     test_table = HashTable(4166287)
     try:
         test_table.rehash()
